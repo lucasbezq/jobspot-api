@@ -4,12 +4,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type Oppening struct {
+type Opening struct {
 	gorm.Model
 	Role     string
 	Company  string
 	Location string
 	Remote   bool
-	Ling     string
+	Link     string
 	Salary   int64
 }
