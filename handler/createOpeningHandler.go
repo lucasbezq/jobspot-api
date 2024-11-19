@@ -7,6 +7,17 @@ import (
 	"github.com/lucasbezq/jobspot-api/schemas"
 )
 
+// @Tags Openings
+// @Summary Create opening
+// @Description Create a new job opening
+// @BasePath /api/v1
+// @Produce json
+// @Accept json
+// @Param request body CreateOpeningRequest true "Request body"
+// @Success 201 {object} CreateOpeningResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /openings [post]
 func CreateOpeningHandler(ctx *gin.Context) {
 	request := CreateOpeningRequest{}
 
