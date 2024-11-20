@@ -34,6 +34,19 @@ func UpdateOpeningHandler(ctx *gin.Context) {
 		return
 	}
 
+	updateOpeningFields(&opening, request)
+
+	if err := db.Save(&opening).Error; err != nil {
+		logger.Errorf("error updating opening: %v", err.Error())
+		sendError(ctx, http.StatusInternalServerError,
+			"error updating opening")
+		return
+	}
+
+	sendSuccess(ctx, "update-opening", opening)
+}
+
+func updateOpeningFields(opening *schemas.Opening, request UpdateOpeningRequest) {
 	if request.Role != "" {
 		opening.Role = request.Role
 	}
@@ -57,13 +70,4 @@ func UpdateOpeningHandler(ctx *gin.Context) {
 	if request.Salary != 0 {
 		opening.Salary = request.Salary
 	}
-
-	if err := db.Save(&opening).Error; err != nil {
-		logger.Errorf("error updating opening: %v", err.Error())
-		sendError(ctx, http.StatusInternalServerError,
-			"error updating opening")
-		return
-	}
-
-	sendSuccess(ctx, "update-opening", opening)
 }
